@@ -84,15 +84,15 @@ class NoiseGenerator(nn.Module):
 
         self.h = torch.nn.Parameter(torch.zeros((1, n, r, c), dtype=self.dtype, device=device), requires_grad=True)
 
-        self.shot = torch.nn.Parameter(torch.ones((1, n, r, c), dtype=self.dtype, device=device), requires_grad=True)
+        self.shot = torch.nn.Parameter(torch.tensor(0.5, dtype=self.dtype, device=device), requires_grad=True)
 
-        self.read = torch.nn.Parameter(torch.full((1, n, r, c), 25, dtype=self.dtype, device=device), requires_grad=True)
+        self.read = torch.nn.Parameter(torch.full((1, n, r, c), 30, dtype=self.dtype, device=device), requires_grad=True)
 
-        self.row = torch.nn.Parameter(torch.tensor(15, dtype=self.dtype, device=device), requires_grad=True)
+        self.row = torch.nn.Parameter(torch.tensor(10, dtype=self.dtype, device=device), requires_grad=True)
 
-        self.rowt = torch.nn.Parameter(torch.tensor(15, dtype=self.dtype, device=device), requires_grad=True)
+        self.rowt = torch.nn.Parameter(torch.tensor(10, dtype=self.dtype, device=device), requires_grad=True)
 
-        self.quant = torch.nn.Parameter(torch.tensor(10, dtype=self.dtype, device=device), requires_grad=True)
+        self.quant = torch.nn.Parameter(torch.tensor(30, dtype=self.dtype, device=device), requires_grad=True)
 
         self.dark = torch.nn.Parameter(torch.full((1, n, r, c), 0.01, dtype=self.dtype, device=device), requires_grad=True)
 
@@ -100,7 +100,7 @@ class NoiseGenerator(nn.Module):
         z = x * self.g + self.h
 
         if add_noise:
-            z += torch.randn(z.shape, device=self.device, requires_grad=True) * (self.shot * torch.sqrt(z))
+            z += torch.randn(z.shape, device=self.device, requires_grad=True) * (self.shot * torch.sqrt(x)) * self.g
 
             z += torch.randn(z.shape, device=self.device, requires_grad=True) * self.read
 
