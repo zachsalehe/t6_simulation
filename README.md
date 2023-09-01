@@ -2,7 +2,7 @@
 
 In this library, we provide a simulation pipeline in order to accurately model the T6, a next-generation computational camera developed by the University of Toronto. The T6 features a dual-tap design, and allows for per-pixel encoded subexposures. The goal of this simulation model is to provide users with an efficient way to accurately prototype the camera’s functionality and results, for use in a variety of applications. 
 
-In this library, we overview the steps required to capture training data, learn the camera's noise parameters, and run the simulation.
+Here, we overview the steps required to capture training data, learn the camera's noise parameters, and run the simulation.
 
 ## Installation
 
