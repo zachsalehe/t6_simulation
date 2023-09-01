@@ -57,7 +57,37 @@ Putting all of our noise sources together, we get out final noisy result, $I_{ou
 $$I_{out} = I_{in} \cdot g + h + N_{shot} + N_{read} + N_{row} + N_{row_t} + N_{quant} + N_{dark}$$
 
 ### Experimental captures
-@TODO: discuss what experimental captures you'll need to calibrate your parameters
+<p align="center">
+  <img src=docs/images/experiment.png>
+</p>
+
+The figure above demonstrates an example capture setup that can be used to gather experimental data. It is important that our scene is illuminated with natural sunlight, as most conventional lights tend to flicker, which can cause unwanted variations in the captured data. It is also important that we are photographing a plain solid surface, as to eliminate any spatial variations that this may cause in the data. To further reduce spatial variations, the lens cap can also be removed during captures.
+
+The following steps must be done twice; once using an all white mask pattern (isolates left tap), and once using an all black mask pattern (isolates right tap). We will capture 256 photos with 1 subframe each at 50 different exposure times. The exposure times will begin from the T6's minimum exposure setting (26.21 $\mu s$), and increase uniformly until we reach a point where most of our pixels are close to (but not at) their saturation limit. This uniform jump in exposure varies depending on the scene's current illumination. Lastly, we will capture another 256 photos at a much higher exposure time, where each pixel is fully saturated, for the purpose of measuring each pixel's saturation limit. Again, the exposure time required for this will vary depending on the illumination.
+
+```
+├── data
+│   ├── left_raw
+│   │   ├── exp000026.21
+│   │   │   ├── 0000.npy
+│   │   │   ├── 0001.npy
+│   │   │   ├── ....
+│   │   │   ├── 0255.npy
+│   │   │   ├── black_img.npy
+│   │   ├── expXXXXXX.XX
+│   │   ├── ...
+│   │   ├── expXXXXXX.XX
+│   │   ├── saturated
+│   │   │   ├── 0000.npy
+│   │   │   ├── 0001.npy
+│   │   │   ├── ....
+│   │   │   ├── 0255.npy
+│   │   │   ├── black_img.npy
+│   ├── right_raw
+│   │   ├── ...
+```
+
+The file tree above dictates how experimental data should be stored so it can be properly accessed. Left tap and right tap captures should be saved in folders named `left_raw` and `right_raw` respectively. The content format within each of them remains the same. Captures for any of the 50 exposure times should be placed in folders named `expXXXXXX.XX`, where `XXXXXX.XX` is that captures exposure time in $\mu s$. Each image should be saved as `XXXX.npy`, where `XXXX` denotes the image number within the exposure. The black image, `black_img.npy` should also be saved within each folder, which is used for black calibration. The set of images captured at the camera's saturation limit should be saved in a folder named `saturation`, so it can be easily distinguished. The contents of this folder follow the same structure as before.
 
 ### Results
 @TODO: show some noise modelling results (some histograms, aggregate)
