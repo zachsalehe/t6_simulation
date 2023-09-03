@@ -50,7 +50,7 @@ Let $\lambda_{row_t}$  be our sensor-wide temporal row noise parameter. We add $
 Let $\lambda_{quant}$ be our sensor-wide quantization noise parameter. We add $N_{quant} \sim \mathcal{U}(\frac{-\lambda_{quant}}{2}, \frac{\lambda_{quant}}{2})$ to our final noisy result.
 
 #### Dark current
-Like shot noise, dark current also follows a Poisson distribution, but instead with respect to time. For the same reasons as before, we also choose to approximate this with a Gaussian distribution. Let $\lambda_{dark}$ be our per-pixel dark current parameter. We add $N_{dark} \sim \mathcal{N}(\mu = \lambda_{dark} \cdot t, \sigma^2 = \lambda_{dark} \cdot t)$ to our final noisy result.
+Like shot noise, dark current also follows a Poisson distribution, but instead with respect to time. For the same reasons as before, we also choose to approximate this with a Gaussian distribution. Let $\lambda_{dark}$ be our per-pixel dark current parameter. We add $N_{dark} \sim \mathcal{N}(\mu = \lambda_{dark}^2 \cdot t, \sigma^2 = \lambda_{dark}^2 \cdot t)$ to our final noisy result.
 
 #### Final noisy result
 Putting all of our noise sources together, we get out final noisy result, $I_{out}$:
