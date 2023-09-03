@@ -90,7 +90,13 @@ The following steps must be done twice; once using an all white mask pattern (is
 The file tree above dictates how experimental data should be stored so it can be properly accessed. Left tap and right tap captures should be saved in folders named `left_raw` and `right_raw` respectively. The content format within each of them remains the same. Captures for any of the 50 exposure times should be placed in folders named `expXXXXXX.XX`, where `XXXXXX.XX` is that captures exposure time in $\mu s$. Each image should be saved as `XXXX.npy`, where `XXXX` denotes the image number within the exposure. The black image, `black_img.npy` should also be saved within each folder, which is used for black calibration. The set of images captured at the camera's saturation limit should be saved in a folder named `saturation`, so it can be easily distinguished. The contents of this folder follow the same structure as before.
 
 ### Results
-@TODO: show some noise modelling results (some histograms, aggregate)
+<p align="center">
+  <img src=docs/images/comp.png>
+</p>
+
+<p align="center">
+  <img src=docs/images/hist.png>
+</p>
 
 ## Simulating T6
 
