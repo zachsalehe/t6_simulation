@@ -100,9 +100,17 @@ The file tree above dictates how experimental data should be stored so it can be
 
 ## Simulating T6
 
-### Example 1: only 1 mask
-@TODO: show an example 
+### Example 1: all white mask
+<p align="center">
+  <img src=docs/images/allwhite.png>
+</p>
 
+### Example 2: all black mask
+<p align="center">
+  <img src=docs/images/allblack.png>
+</p>
 
-### Example 2: coded mask
-@TODO: show an example
+### Example 3: merge mask
+<p align="center">
+  <img src=docs/images/merge.png>
+</p>
