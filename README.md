@@ -7,11 +7,18 @@ Here, we overview the steps required to capture training data, learn the camera'
 ## Installation
 
 ### Quick start
-Something like:
 ```
-conda create ...
+git clone https://github.com/saleheza/t6_simulation
+conda create -n t6_noise
+conda activate t6_noise
 pip install -r requirements.txt
-python run.py
+python format_data.py --data_root data
+python train_gan.py --data_root data
+python simulation.py \
+   --params data/params.mat \
+   --mask masks/t6_intersect1.bmp \
+   --input_imgs input/image.png \
+   --output_dir output
 ```
 
 ### List of dependencies
