@@ -14,7 +14,7 @@ conda activate t6_noise
 pip install -r requirements.txt
 python format_data.py --data_root data
 python train_gan.py --data_root data
-python simulation.py \
+python simulate.py \
    --params data/params.mat \
    --mask masks/t6_intersect1.bmp \
    --input_imgs input/image.png \
@@ -22,11 +22,45 @@ python simulation.py \
 ```
 
 ### List of dependencies
-@TODO
+```
+numpy
+scipy
+matplotlib
+opencv-python
+torch
+torchvision
+lpips
+```
 
-### How to run the different files in the directory, what each of them does
-@TODO
+### How to run the different files in the directory, and what each of them does
+`format_data.py` reformats raw T6 data for training use. It takes one argument, `--data_root`, which is the root to the data directory. Instructions for how to capture experimental data and how to properly store it can be found below.
 
+`train_gan.py` trains a generative adversarial network to learn the T6's noise parameters. It also takes one argument, `--data_root`, which is the root to the same data directory as before.
+
+`simulate.py` runs the T6 simulation with its given arguments:
+```
+--params PARAMS       the path to the parameters .mat file
+--mask MASK           the path to the mask .bmp file
+--input_imgs INPUT_IMGS
+                     the path to the input image(s) (for multiple images,
+                     use ? [e.g. images/?.png])
+--output_dir OUTPUT_DIR
+                     the path to the output directory
+--mode MODE           options: single_in (uses a single input image),
+                     multi_in_single_out (uses multiple input images,
+                     switching at each subframe), multi_in_multi_out (uses
+                     multiple input images, switching at each capture)
+--num_burst NUM_BURST
+                     number of burst captures (only used for single_in and
+                     multi_in_single_out modes)
+--subframes SUBFRAMES
+                     number of subframes per capture (only used for
+                     single_input and multi_in_multi_out modes)
+--exp EXP             exposure time [us] of each subframe (>= 26.21)
+--scale SCALE         linear scale that can be used to scale input images
+                     prior to simulation
+```
+Though every T6 sensor is expected to have varying noise parameters, we provide an example set of parameters stored in `data/params.mat`. We also provide several masks stored in `masks/`.
 
 ## Noise modelling
 
