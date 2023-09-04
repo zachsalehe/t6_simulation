@@ -35,7 +35,7 @@ lpips
 ### How to run the different files in the directory, and what each of them does
 `format_data.py` reformats raw T6 data for training use. It takes one argument, `--data_root`, which is the root to the data directory. Instructions for how to capture experimental data and how to properly store it can be found below.
 
-`train_gan.py` trains a generative adversarial network to learn the T6's noise parameters. It also takes one argument, `--data_root`, which is the root to the same data directory as before.
+`train_gan.py` trains a generative adversarial network (GAN) to learn the T6's noise parameters. It also takes one argument, `--data_root`, which is the root to the same data directory as before.
 
 `simulate.py` runs the T6 simulation with its given arguments:
 ```
