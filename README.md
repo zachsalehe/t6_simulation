@@ -155,3 +155,11 @@ The file tree above dictates how experimental data should be stored so it can be
 <p align="center">
   <img src=docs/images/merge.png>
 </p>
+
+## References
+
+Our noise model was inspired by Kristina Monakhova's amazing physics-based noise model:
+> K. Monakhova *et al.*, "Dancing Under the Stars: Video Denoising in Starlight," *2022 IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)*.
+
+More information about the T6 can be found in Rahul Gulve's full journal paper:
+> R. Gulve *et al.*, "39 000-Subexposures/s Dual-ADC CMOS Image Sensor With Dual-Tap Coded-Exposure Pixels for Single-Shot HDR and 3-D Computational Imaging," *2022 IEEE Journal of Solid-State Circuits (JSSC)*.
