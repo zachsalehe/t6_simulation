@@ -7,11 +7,20 @@ Here, we overview the steps required to capture training data, learn the camera'
 ## Installation
 
 ### Quick start
+Clone the repo:
 ```
 git clone https://github.com/saleheza/t6_simulation
-conda create -n t6_noise
-conda activate t6_noise
+```
+
+Create an environment:
+```
+conda create -n t6_sim
+conda activate t6_sim
 pip install -r requirements.txt
+```
+
+Quick run commands (details on each command below):
+```
 python format_data.py --data_root data
 python train_gan.py --data_root data
 python simulate.py \
@@ -63,11 +72,16 @@ lpips
 Though every T6 sensor is expected to have varying noise parameters, we provide an example set of parameters stored in `data/params.mat`. We also provide several masks stored in `masks/`.
 
 ## Noise modelling
+Our noise model takes inspiration from Sam Hasinoff's image formation model, as well as Kristina Monakhova's physics-based noise model (references below).
+
+Sam Hasinoff's image formation model is expressed by $I = \min \set{ \Phi t / g + I_0 + n, I_\max }$, where $\text{Var}(n) = \Phi t / g^2 + \sigma^2_\text{read} / g^2 + \sigma^2_\text{ADC}$. Here, $I$ is the measured pixel value, $\Phi t$ is the number of photons collected over an exposure time $t$, $g$ is the sensor's gain, $I_0$ is the sensor's black level, $n$ is the total additive noise (composed of shot, read, and ADC noise), and $I_\max$ is the sensor's saturation point.
+
+Kristina Monakhova's physics-based noise model is expressed by $N = N_s + N_r + N_{row} + N_{row,t} + N_q + N_f + N_p$. Here, $N$ is the total additive noise, where $N_s$, $N_r$, $N_{row}$, $N_{row,t}$, $N_q$, $N_f$, and $N_p$ respectively represent the added shot noise, read noise, row noise, temporal row noise, quantization noise, fixed pattern noise, and periodic noise.
 
 ### Theory
 Here, we briefly overview the various learned components of our noise model. 
 
-Consider that our clean input image is $I_{in}$ $[DN]$ (normalized to a 12-bit range), our camera's saturation level is $I_{max}$ $[DN]$, and our simulated exposure time is $t$ $[\mu s]$.
+Consider that our clean input image is $I_{in}$ $[DN]$ (clipped to a 12-bit range), our camera's saturation level is $I_{max}$ $[DN]$, and our simulated exposure time is $t$ $[\mu s]$.
 
 #### Gain
 Let $g$ be our constant per-pixel gain parameter. We multiply $I_{in}$ by $g$ in order to account for gain variations across the sensor in our final noisy result.
@@ -131,6 +145,8 @@ The following steps must be done twice; once using an all white mask pattern (is
 The file tree above dictates how experimental data should be stored so it can be properly accessed. Left tap and right tap captures should be saved in folders named `left_raw` and `right_raw` respectively. The content format within each of them remains the same. Captures for any of the 50 exposure times should be placed in folders named `expXXXXXX.XX`, where `XXXXXX.XX` is that captures exposure time in $\mu s$. Each image should be saved as `XXXX.npy`, where `XXXX` denotes the image number within the exposure. The black image, `black_img.npy` should also be saved within each folder, which is used for black calibration. The set of images captured at the camera's saturation limit should be saved in a folder named `saturation`, so it can be easily distinguished. The contents of this folder follow the same structure as before.
 
 ### Results
+Our extensive noise modeling is able to closely capture the true noise distributions of the T6 on a per-pixel level, as evidenced by the figures below.
+
 <p align="center">
   <img src=docs/images/comp.png>
 </p>
@@ -139,7 +155,7 @@ The file tree above dictates how experimental data should be stored so it can be
   <img src=docs/images/hist.png>
 </p>
 
-## Simulating T6
+## Simulating the T6
 
 ### Example 1: all white mask
 <p align="center">
@@ -157,9 +173,11 @@ The file tree above dictates how experimental data should be stored so it can be
 </p>
 
 ## References
+Sam Hasinoff's image formation model:
+> S. W. Hasinoff *et al.*, "Noise-Optimal Capture for High Dynamic Range Photography," *2010 IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)*.
 
-Our noise model was inspired by Kristina Monakhova's amazing physics-based noise model:
+Kristina Monakhova's physics-based noise model:
 > K. Monakhova *et al.*, "Dancing Under the Stars: Video Denoising in Starlight," *2022 IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)*.
 
-More information about the T6 can be found in Rahul Gulve's full journal paper:
+More information about the T6:
 > R. Gulve *et al.*, "39 000-Subexposures/s Dual-ADC CMOS Image Sensor With Dual-Tap Coded-Exposure Pixels for Single-Shot HDR and 3-D Computational Imaging," *2022 IEEE Journal of Solid-State Circuits (JSSC)*.
