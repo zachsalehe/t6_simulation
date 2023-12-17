@@ -172,6 +172,11 @@ Our extensive noise modeling is able to closely capture the true noise distribut
   <img src=docs/images/merge.png>
 </p>
 
+### Example 4: cat mask
+<p align="center">
+  <img src=docs/images/cat.png>
+</p>
+
 ## References
 Sam Hasinoff's image formation model:
 > S. W. Hasinoff *et al.*, "Noise-Optimal Capture for High Dynamic Range Photography," *2010 IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)*.
