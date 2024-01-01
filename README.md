@@ -9,7 +9,7 @@ Here, we overview the steps required to capture training data, learn the camera'
 ### Quick start
 Clone the repo:
 ```
-git clone https://github.com/saleheza/t6_simulation
+git clone https://github.com/zachsalehe/t6_simulation
 ```
 
 Create an environment:
